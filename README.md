@@ -12,3 +12,9 @@ From this step, I learned that a browser needs a properly formatted HTTP respons
 
 ![Commit 2 screen capture](/assets/images/commit2.png)
 
+# Commit 3 Reflection notes
+
+In this step, I improved the server so it no longer always returns the same HTML file. Instead, it now checks the request line and decides which response to send. I used `buf_reader.lines().next()` to get only the first line of the HTTP request, which contains the method, path, and HTTP version. Then I used a `match` expression to compare the request with known patterns. If the request is "GET / HTTP/1.1", the server returns a 200 OK response with the hello.html file. Otherwise, it returns a 404 NOT FOUND response with a separate 404.html file.
+
+This change introduces a basic routing mechanism in the server. It shows how a server can respond differently based on the URL path requested by the client. I also learned that the status line is important because it tells the browser whether the request was successful or not. This step is important because it is the foundation for building more complex web server behavior, where different endpoints return different content.
+
