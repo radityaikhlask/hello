@@ -18,3 +18,9 @@ In this step, I improved the server so it no longer always returns the same HTML
 
 This change introduces a basic routing mechanism in the server. It shows how a server can respond differently based on the URL path requested by the client. I also learned that the status line is important because it tells the browser whether the request was successful or not. This step is important because it is the foundation for building more complex web server behavior, where different endpoints return different content.
 
+# Commit 4 Reflection notes
+
+In this step, I simulated a slow request by adding a new route, `/sleep`, that pauses for 10 seconds before sending the response. I imported `std::thread` and `std::time::Duration`, then used `thread::sleep(Duration::from_secs(10))` inside the match arm for the `/sleep` request. The rest of the response logic stays the same as the previous milestone, but now different request paths can take very different amounts of time to complete. When I tested the server with one tab requesting `/sleep` and another tab requesting `/`, I observed that the second request also had to wait.
+
+This happens because the server is still single-threaded. Even though the `/` route itself is fast, the program handles one connection at a time in the loop, so a slow request blocks the entire server. This milestone clearly demonstrates the limitation of a single-threaded server and explains why concurrency is useful in web servers. I learned that performance problems are not only about algorithm efficiency, but also about how requests are scheduled and processed.
+
